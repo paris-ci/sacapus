@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Localisez votre Sacapus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon"
+          type="image/png"
+          href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="css/main.css">
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        /* Zebra striping */
+        tr:nth-of-type(odd) {
+            background: #eee;
+        }
+        th {
+            background: #333;
+            color: white;
+            font-weight: bold;
+        }
+        td, th {
+            padding: 6px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        /*
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+        @media
+        only screen and (max-width: 760px),
+        (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+            /* Force table to not be like tables anymore */
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr { border: 1px solid #ccc; }
+
+            td {
+                /* Behave  like a "row" */
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                /* Now like a table header */
+                position: absolute;
+                /* Top/left values mimic padding */
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+            }
+
+            /*
+            Label the data
+            */
+            td:nth-of-type(1):before { content: "Date"; }
+            td:nth-of-type(2):before { content: "Position"; }
+            td:nth-of-type(3):before { content: "Confiance"; }
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-page100">
+
+            <h1 style="display: block; width: 100%; text-align: center">Historique des positions de mon sacapus</h1>
+
+            <span style="display: block; width: 100%; text-align: center">
+            <span class="login100-form-title"
+                  style="padding-bottom: 24px;">
+						Bonjour {{ user.fullname|escape }}!
+            </span>
+            L'historique des postions relevées de votre sacapus est affiché sur cette page
+            </span>
+
+            <span style="display: block; width: 100%; text-align: center; padding: 10px 10px 10px 10px">
+            <div class="container-login100-form-btn">
+                <form action="user.php">
+                    <button class="login100-form-btn">
+                        Page principale
+                    </button>
+                </form>
+            </div>
+            </span>
+
+            <table id="hist_table">
+                <thead>
+                <tr>
+                    <th>Date et heure</th>
+                    <th>Position</th>
+                    <th>Confiance (%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for position in positions|reverse %}
+                    <tr>
+                        <td>{{ position.datetime|date("j/m/y H:i", "Europe/Paris") }}</td>
+                        <td>{{ position.location|escape }}</td>
+                        <td>{{ position.confidence * 100 }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <span style="display: block; width: 100%; text-align: center">
+            <div class="container-login100-form-btn">
+                <form action="user.php">
+                    <button class="login100-form-btn">
+                        Page principale
+                    </button>
+                </form>
+            </div>
+            </span>
+
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

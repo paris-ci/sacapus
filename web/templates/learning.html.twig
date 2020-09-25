@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Localisez votre Sacapus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon"
+          type="image/png"
+          href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet"
+          type="text/css"
+          href="css/main.css">
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
+    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900"
+          rel="stylesheet"
+          type="text/css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/tablesorter@2.30.3/dist/js/jquery.tablesorter.combined.min.js"></script>
+
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/tablesorter@2.30.1/dist/css/theme.default.min.css">
+
+
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-page100">
+
+            <h1 style="display: block; width: 100%; text-align: center">Apprentissage en cours : {{ location|escape }}</h1>
+
+            <span style="display: block; width: 100%; text-align: center">
+            <span class="login100-form-title"
+                  style="padding-bottom: 24px;">
+                {{ user.fullname|escape }}, votre sacapus apprends
+            </span>
+            Le processus ne peut etre annulé, mais vous pouvez toujours consulter l'historique des positions.
+            Il faudra compter environ 10 à 15 minutes d'apprentissage pour une précision optimale, soit 45 phases.
+            </span>
+
+            <div id="container"
+                 style="width: 50vw; margin: 20px auto;">
+                {#<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
+                    <path fill-opacity="0" stroke-width="1" stroke="#bbb" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z"/>
+                    <path id="heart-path" fill-opacity="0" stroke-width="3" stroke="#ED6A5A" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z"/>
+                </svg>#}
+            </div>
+
+
+            <script>
+
+
+
+
+                for (var i = 0; i < 46; i++) {
+                    (function(e){
+                        function repeat(){
+
+                        $("#container").html("");
+
+                        var bar = new ProgressBar.SemiCircle(container, {
+                            strokeWidth: 6,
+                            color: '#FFEA82',
+                            trailColor: '#eee',
+                            trailWidth: 1,
+                            easing: 'easeOut',
+                            duration: {{ duration / 45 }},
+                            svgStyle: null,
+                            text: {
+                                value: '',
+                                alignToBottom: false
+                            },
+                            from: {color: '#a81593'},
+                            to: {color: '#FF512F'},
+                            // Set default step function for all animate calls
+                            step: function step(state, bar) {
+                                bar.path.setAttribute('stroke', state.color);
+                                var value = Math.round(bar.value() * 100);
+                                bar.setText("Phase " + (parseInt(e) + 1).toString() + ", " + value + '%');
+                                bar.text.style.color = state.color;
+                            }
+                        });
+                        bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+                        bar.text.style.fontSize = '2rem';
+
+                        bar.animate(1.0); // Number from 0.0 to 1.0
+                    }
+                    var to = {{ duration/45 }} * e;
+                    window.setTimeout(repeat, to );
+                })(i)
+                }
+
+
+
+
+
+                window.setTimeout('window.location.href = "user.php"', {{ duration - 14000 }} );
+
+            </script>
+
+
+            <span style="display: block; width: 100%; text-align: center">
+            <div class="container-login100-form-btn">
+                <form action="user.php">
+                    <button class="login100-form-btn">
+                        Page principale
+                    </button>
+                </form>
+            </div>
+            </span>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
